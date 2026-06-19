@@ -1,3 +1,5 @@
+# models.py: define structures of db for db table 
+
 # db.Model: classes recognized by SQLAlchemy as db tables 
 # SerializerMixin: helper class, easy to convert SQLAlchemy model instances into dictionaries (return JSON from Flask API)
 # nullable=False: db constraint ensures a record cannot be saved unless specific fields have a value; cannot be empty OR null 
