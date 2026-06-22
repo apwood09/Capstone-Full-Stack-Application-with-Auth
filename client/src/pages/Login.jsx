@@ -22,7 +22,7 @@ const Login = () => {
             // attempt login: calls backend -> AuthContext
             await login(formData.username, formData.password); 
             // successful login: redirect user -> dashbaord 
-            navigate('/dashbaord'); 
+            navigate('/dashboard'); 
         } catch (err) {
             // login fails: send alert message below 
             alert('Login failed. Please check your credentials.');
