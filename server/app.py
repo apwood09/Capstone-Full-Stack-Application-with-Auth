@@ -3,9 +3,11 @@ from models import db
 from flask_jwt_extended import JWTManager 
 from routes.auth import auth_bp
 from routes.resources import res_bp
+from extensions import bcrypt
 
 # initialize Flaksl application
 app = Flask(__name__)
+bcrypt.init_app(app)
 
 # CONFIGURATION
 # specifies db files (SQLite
@@ -24,6 +26,7 @@ jwt = JWTManager(app)
 # 'url_prefix' ensures routes are accessed ('/api')
 app.register_blueprint(auth_bp, url_prefix='/api')
 app.register_blueprint(res_bp, url_prefix='/api')
+app.register_blueprint(auth_bp)
 
 # start development server
 if __name__ == '__main__': 
