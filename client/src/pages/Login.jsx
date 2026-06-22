@@ -1,5 +1,6 @@
 // primary user interaction point for authentication flow 
 
+import React from 'react';
 import { useState, useContext } from "react";
 import { AuthContext } from '../context/AuthContext'; 
 import { useNavigate } from 'react-router-dom'

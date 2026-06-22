@@ -1,6 +1,7 @@
 // user sees their data
 // uses api instance to fetch private resources 
 
+import React from 'react';
 import { useEffect, useState } from "react";
 import api from '../api/api'; 
 import AssetCard from '../components/AssetCard'
