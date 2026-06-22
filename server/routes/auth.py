@@ -1,7 +1,7 @@
 # handles creation of new user & JWT tokens
 
 from flask import Blueprint, request, jsonify
-from models import db, User, bcrypt
+from models import db, User, Bcrypt
 from flask_jwt_extended import create_access_token
 
 auth_bp = Blueprint('auth_bp', __name__)
@@ -15,7 +15,7 @@ def signup():
     db.session.commit()
     return jsonify({"message": "User created successfuly"}), 201
 
-@auth_bp.route('/login', mmethods=['POST'])
+@auth_bp.route('/login', methods=['POST'])
 def login(): 
     data = request.json
     user = User.query.filter_by(username=data['username']).first()

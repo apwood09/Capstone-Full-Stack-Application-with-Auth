@@ -10,7 +10,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 # initialize extensions 
 db = SQLAlchemy() # db interaction 
-Bcrypt = Bcrypt() # secure password hashing 
+bcrypt = Bcrypt() # secure password hashing 
 
 # CLASSES 
 # User 

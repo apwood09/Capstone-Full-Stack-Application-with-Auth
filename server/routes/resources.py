@@ -23,7 +23,7 @@ def handle_assets():
         db.session.commit()
         return jsonify(new_assest.to_dict()), 201
 
-@res_bp.routes('/assets/<int:id>', methods=['DELETE'])
+@res_bp.route('/assets/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_asset(id): 
     user_id = get_jwt_identity()
