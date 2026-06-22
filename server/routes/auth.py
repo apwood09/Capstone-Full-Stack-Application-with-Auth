@@ -10,7 +10,7 @@ auth_bp = Blueprint('auth_bp', __name__)
 def signup(): 
     data = request.json
     hashed_pw = bcrypt.generate_password_hash(data['password']).decode('utf-8')
-    new_user = User(username=data['username', password_hash=hashed_pw])
+    new_user = User(username=data['username'], password_hash=hashed_pw)
     db.session.add(new_user)
     db.session.commit()
     return jsonify({"message": "User created successfuly"}), 201
