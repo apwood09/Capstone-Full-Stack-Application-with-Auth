@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import api from '../api/api';
 
 // create context object to store & pass down authentication state
