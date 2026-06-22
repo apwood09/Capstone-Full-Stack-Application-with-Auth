@@ -4,8 +4,8 @@
 # SerializerMixin: helper class, easy to convert SQLAlchemy model instances into dictionaries (return JSON from Flask API)
 # nullable=False: db constraint ensures a record cannot be saved unless specific fields have a value; cannot be empty OR null 
 
-from flask_sqlalchemy from SQLAlchemy 
-from flask_bcrypt from Bcrypt 
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 from sqlalchemy_serializer import SerializerMixin 
 
 # initialize extensions 
