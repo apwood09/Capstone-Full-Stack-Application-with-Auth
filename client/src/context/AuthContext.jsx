@@ -5,7 +5,7 @@ import api from '../api/api';
 export const AuthContext = createContext(); 
 
 // create provider component -> wrap application 
-export const AuthProvider = ({ Children}) => {
+export const AuthProvider = ({ children }) => {
     // 'user' holds logged-in user's info; initially null (logged out)
     const [user, setUser] = useState(localStorage.getItem('user') || null); 
 
@@ -31,7 +31,7 @@ export const AuthProvider = ({ Children}) => {
 
     // provide 'user' state & 'login' function -> child components
     return (
-        <AuthContext.Provider value={{ user, login }}>
+        <AuthContext.Provider value={{ user, login, logout }}>
             {children}
         </AuthContext.Provider>
     ); 
