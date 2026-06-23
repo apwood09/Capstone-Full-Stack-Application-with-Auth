@@ -8,44 +8,45 @@ import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
-    // intialize local state: store list of assets
     const [assets, setAssets] = useState([]); 
+    const [loading, setLoading] = useState(true);
     const { logout } = useContext(AuthContext); 
     const navigate = useNavigate(); 
 
-    // useEffect triggers logic when components mount 
-    useEffect (() => {
+    useEffect(() => {
         const fetchAssets = async () => {
             try {
-                // API instance: configured with interceptors to send JWT
                 const res = await api.get('/assets'); 
-                // update state: data received from backend 
                 setAssets(res.data); 
             } catch (err) {
                 console.error("Error fetching assets", err); 
+            } finally {
+                setLoading(false);
             }
         }; 
-
         fetchAssets(); 
-    }, []); // empty dependency array: ensures only runs once on load
-    
+    }, []);
+
     const handleLogout = () => {
         logout(); 
         navigate('/login');
     }; 
 
+    if (loading) return <div className="p-8">Loading your assets...</div>;
+
     return (
-        <div>
+        <div className="p-8">
             <h1 className="text-2xl font-bold mb-6">My Home Assets</h1>
 
-            {/* logout button */}
-            <button onClick={handleLogout} className='bg-red-500 text-white p-2 mb-6 rounded'>
+            <button 
+                onClick={handleLogout} 
+                className='bg-red-500 text-white p-2 mb-6 rounded'
+            >
                 Logout 
             </button>
 
-            {/* asset grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {assets.map(asset => (
+                {Array.isArray(assets) && assets.map(asset => (
                     <AssetCard key={asset.id} asset={asset} />
                 ))}
             </div>
