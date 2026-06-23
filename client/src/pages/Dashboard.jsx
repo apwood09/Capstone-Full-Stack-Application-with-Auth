@@ -17,6 +17,7 @@ const Dashboard = () => {
         const fetchAssets = async () => {
             try {
                 const res = await api.get('/assets'); 
+                console.log("API Response:", res.data); 
                 setAssets(res.data); 
             } catch (err) {
                 console.error("Error fetching assets", err); 
@@ -45,6 +46,7 @@ const Dashboard = () => {
                 Logout 
             </button>
 
+            {/* Grid display */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {Array.isArray(assets) && assets.map(asset => (
                     <AssetCard key={asset.id} asset={asset} />

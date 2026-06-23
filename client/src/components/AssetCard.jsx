@@ -1,7 +1,10 @@
 // individual item, 'stateless' component that displays data passed to it
 
+import React from 'react';
+
 // component AssestCard accepts 'asset' objext as prop 
 const AssetCard = ({ asset }) => {
+    if (!asset) return null;
     return (
         <div className="border p-4 rounded shadow-md m-2">
             {/* display: asset name bolded with larger font size */}
