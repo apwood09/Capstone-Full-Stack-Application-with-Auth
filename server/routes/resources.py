@@ -14,14 +14,14 @@ def handle_assets():
 
     if request.method == 'GET': 
         assets = Asset.query.filter_by(user_id=user_id).all()
-        return jsonify([a.to.dict() for a in assets]), 200
+        return jsonify([a.to_dict() for a in assets]), 200
 
     if request.method == 'POST': 
         data = request.json
-        new_assest = Asset(name=data['name'], user_id=user_id)
-        db.session.add(new_assest)
+        new_asset = Asset(name=data['name'], user_id=user_id)
+        db.session.add(new_asset)
         db.session.commit()
-        return jsonify(new_assest.to_dict()), 201
+        return jsonify(new_asset.to_dict()), 201
 
 @res_bp.route('/assets/<int:id>', methods=['DELETE'])
 @jwt_required()
