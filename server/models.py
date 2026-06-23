@@ -39,3 +39,11 @@ class Asset(db.Model, SerializerMixin):
     # foreign key: one-to-many relationship
     # one user -> many assets
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "purchase_date": self.purchase_date,
+            "user_id": self.user_id
+        }
