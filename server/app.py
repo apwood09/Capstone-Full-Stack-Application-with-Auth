@@ -16,6 +16,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///homeKeep.db'
 # require to  sign & verify JWT tokens
 app.config['JWT_SECRET_KEY'] = 'super-secret'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['JWT_TOKEN_LOCATION'] = ['headers']
 
 # INITIALIZATION
 # connects db instance -> Flask app
