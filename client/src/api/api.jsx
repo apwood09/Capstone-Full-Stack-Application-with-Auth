@@ -14,7 +14,7 @@ api.interceptors.request.use((config) => {
     // if token exists, attack to 'Authorization' header
     // 'Bearer' prefix standard protocol for JWT authentication
     if (token) {
-        config.headers.Authorization = 'Bearer ${token}'; 
+        config.headers.Authorization = `Bearer ${token}`; 
     }
     return config; // return modified configuration -> complete request 
 }); 
