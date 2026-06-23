@@ -4,6 +4,8 @@ import React from 'react';
 import { useState, useContext } from "react";
 import { AuthContext } from '../context/AuthContext'; 
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import api from '../api/api';
 
 const Login = () => {
     // local state: track input fileds username & password
@@ -44,6 +46,14 @@ const Login = () => {
             />
             {/* submission button */}
             <button className="bg-blue-500 text-white p-2 w-full">Login</button>
+
+            {/* sign Up */}
+            <p className="mt-4 text-sm">
+                Don't have an account?
+                <Link to="/signup" className="text-blue-500 underline ml-2">
+                    Sign up here
+                </Link>
+            </p>
         </form>
     );
 }; 
