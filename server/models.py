@@ -54,7 +54,8 @@ class Log(db.Model):
     __tablename__ = 'log'
     
     id = db.Column(db.Integer, primary_key=True)
-    asset_id = db.Column(db.Integer, db.ForeignKey('asset.id'), nullable=False)
+    asset_id = db.Column(db.Integer, db.ForeignKey('assets.id'), nullable=False)
+    
     description = db.Column(db.String(200))
     service_date = db.Column(db.String(20))
     document_url = db.Column(db.String(500))
