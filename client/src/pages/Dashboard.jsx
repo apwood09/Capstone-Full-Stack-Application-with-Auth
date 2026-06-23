@@ -6,6 +6,7 @@ import api from '../api/api';
 import AssetCard from '../components/AssetCard'; 
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import LogModal from '../components/LogModal';
 
 // AddAssetForm
 const AddAssetForm = ({ onAssetAdded }) => {
@@ -48,6 +49,8 @@ const AddAssetForm = ({ onAssetAdded }) => {
 const Dashboard = () => {
     const [assets, setAssets] = useState([]); 
     const [loading, setLoading] = useState(true);
+    const [activeAsset, setActiveAsset] = useState(null);
+
     const { logout } = useContext(AuthContext); 
     const navigate = useNavigate(); 
 
@@ -92,20 +95,32 @@ const Dashboard = () => {
         <div className="p-8">
             <h1 className="text-2xl font-bold mb-6">My Home Assets</h1>
 
+            {activeAsset && (
+                <LogModal 
+                    asset={activeAsset} 
+                    onClose={() => setActiveAsset(null)} 
+                />
+            )}
+
             <button onClick={handleLogout} className='bg-red-500 text-white p-2 mb-6 rounded'>
                 Logout 
             </button>
 
-            {/* integrate form: onAssetAdded */}
             <AddAssetForm onAssetAdded={handleAddAsset} />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {Array.isArray(assets) && assets.map(asset => (
-                    <AssetCard key={asset.id} asset={asset} onDelete={handleDelete} />
+                    <AssetCard 
+                        key={asset.id} 
+                        asset={asset} 
+                        onDelete={handleDelete}
+                        // 3. Pass the trigger function to open the modal
+                        onOpenLogs={() => setActiveAsset(asset)} 
+                    />
                 ))}
             </div>
         </div>
     ); 
-}; 
+};
 
 export default Dashboard;

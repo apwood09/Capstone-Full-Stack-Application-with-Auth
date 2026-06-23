@@ -35,3 +35,20 @@ def delete_asset(id):
     db.session.delete(asset)
     db.session.commit()
     return jsonify({"message": "Asset deleted"}), 200
+
+@res_bp.route('/assets/<int:asset_id>/logs', methods=['GET', 'POST'])
+@jwt_required()
+def handle_logs(asset_id): 
+
+    asset = Asset.query.filter_by(id=asset_id, user_id=get_jwt_identity()).first_or_404()
+
+    if request.method == 'GET':
+        logs = Log.query.filter_by(asset_id=asset_id).all()
+        return jsonify([l.to_dict() for l in logs]), 200
+
+    if request.method == 'POST': 
+        data = request.json 
+        new_log = Log(asset_id=asset_id, **data)
+        db.session.add(new_log)
+        db.session.commit()
+        return jsonify(new_log.to_dict()), 201

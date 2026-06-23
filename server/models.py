@@ -25,6 +25,7 @@ class User(db.Model, SerializerMixin):
     # store hashed password 
     password_hash = db.Column(db.String, nullable=False)
 
+# Asset
 class Asset(db.Model, SerializerMixin): 
     __tablename__= 'assets'
 
@@ -46,4 +47,20 @@ class Asset(db.Model, SerializerMixin):
             "name": self.name,
             "purchase_date": self.purchase_date,
             "user_id": self.user_id
+        }
+
+# Log
+class Log(db.Model): 
+    id = db.Column(db.Integer, primary_key=True)
+    asset_id = db.Column(db.Integer, db.ForeignKey('asset.id'), nullable=False)
+    description = db.Column(db.String(200))
+    service_date = db.Column(db.String(20))
+    document_url = db.Column(db.String(500))
+
+    def to_dict(self): 
+        return {
+            "id": self.id,
+            "description": self.description, 
+            "service_date": self.service_date, 
+            "document_url": self.document_url
         }

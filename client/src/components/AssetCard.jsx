@@ -7,15 +7,23 @@ const AssetCard = ({ asset, onDelete }) => {
     if (!asset) return null;
     return (
         <div className="border p-4 rounded shadow-md m-2">
-            {/* display: asset name bolded with larger font size */}
             <h3 className="font-bold text-lg">{asset.name}</h3>
-            {/* display: purchase date; show 'N/A' if asset.Purchase_date is null OR undefined */}
             <p className="text-sm">Added on: {asset.purchase_date || 'N/A'}</p>
-
-            {/* delete button */}
-            <button onClick={() => onDelete(asset.id)} className='mt-4 bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600'>
-                Delete
-            </button>
+            
+            <div className="flex gap-2">
+                <button 
+                    onClick={() => onOpenLogs()} 
+                    className='mt-4 bg-gray-500 text-white px-3 py-1 rounded text-xs'
+                >
+                    Manage Logs
+                </button>
+                <button 
+                    onClick={() => onDelete(asset.id)} 
+                    className='mt-4 bg-red-500 text-white px-3 py-1 rounded text-xs'
+                >
+                    Delete
+                </button>
+            </div>
         </div>
     );
 };
