@@ -18,7 +18,7 @@ def handle_assets():
 
     if request.method == 'POST': 
         data = request.json
-        new_asset = Asset(name=data['name'], user_id=user_id)
+        new_asset = Asset(name=data['name'], purchase_date=data.get('purchase_date'), user_id=user_id)
         db.session.add(new_asset)
         db.session.commit()
         return jsonify(new_asset.to_dict()), 201
