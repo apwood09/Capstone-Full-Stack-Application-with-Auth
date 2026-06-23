@@ -3,7 +3,7 @@
 import React from 'react';
 
 // component AssestCard accepts 'asset' objext as prop 
-const AssetCard = ({ asset, onDelete }) => {
+const AssetCard = ({ asset, onDelete, onOpenLogs }) => {
     if (!asset) return null;
     return (
         <div className="border p-4 rounded shadow-md m-2">
