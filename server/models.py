@@ -51,6 +51,8 @@ class Asset(db.Model, SerializerMixin):
 
 # Log
 class Log(db.Model): 
+    __tablename__ = 'log'
+    
     id = db.Column(db.Integer, primary_key=True)
     asset_id = db.Column(db.Integer, db.ForeignKey('asset.id'), nullable=False)
     description = db.Column(db.String(200))
