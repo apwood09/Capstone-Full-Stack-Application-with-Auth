@@ -65,11 +65,22 @@ const Dashboard = () => {
         fetchAssets(); 
     }, []);
 
-    // update state without page refresh
+    // delete asset
+    const handleDelete = async (id) => {
+        try {
+            await api.delete(`/assets/${id}`);
+            setAssets(assets.filter(asset => asset.id != id));
+        } catch (err) {
+            console.error("Failed to delete asset", err);
+        }
+    }; 
+
+    // add asset
     const handleAddAsset = (newAsset) => {
         setAssets([...assets, newAsset]);
     };
 
+    // logout
     const handleLogout = () => {
         logout(); 
         navigate('/login');
@@ -90,7 +101,7 @@ const Dashboard = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {Array.isArray(assets) && assets.map(asset => (
-                    <AssetCard key={asset.id} asset={asset} />
+                    <AssetCard key={asset.id} asset={asset} onDelete={handleDelete} />
                 ))}
             </div>
         </div>

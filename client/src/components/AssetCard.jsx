@@ -11,6 +11,11 @@ const AssetCard = ({ asset }) => {
             <h3 className="font-bold text-lg">{asset.name}</h3>
             {/* display: purchase date; show 'N/A' if asset.Purchase_date is null OR undefined */}
             <p className="text-sm">Added on: {asset.purchase_date || 'N/A'}</p>
+
+            {/* delete button */}
+            <button onClick={() => onDelete(asset.id)} className='mt-4 bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600'>
+                Delete
+            </button>
         </div>
     );
 };
