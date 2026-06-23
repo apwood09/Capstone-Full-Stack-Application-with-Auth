@@ -34,6 +34,8 @@ class Asset(db.Model, SerializerMixin):
     # asset detials 
     name = db.Column(db.String, nullable=False)
 
+    purchase_date = db.Column(db.String, nullable=True)
+
     # foreign key: one-to-many relationship
     # one user -> many assets
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
