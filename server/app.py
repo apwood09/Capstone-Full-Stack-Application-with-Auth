@@ -26,7 +26,7 @@ jwt = JWTManager(app)
 # 'url_prefix' ensures routes are accessed ('/api')
 app.register_blueprint(auth_bp, url_prefix='/api')
 app.register_blueprint(res_bp, url_prefix='/api')
-app.register_blueprint(auth_bp)
+app.register_blueprint(auth_bp, name='auth_blueprint_unique')
 
 # start development server
 if __name__ == '__main__': 
