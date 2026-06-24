@@ -58,6 +58,7 @@ class Log(db.Model):
     
     description = db.Column(db.String(200))
     service_date = db.Column(db.String(20))
+    category = db.Column(db.String(50))
     document_url = db.Column(db.String(500))
 
     def to_dict(self): 
@@ -65,5 +66,6 @@ class Log(db.Model):
             "id": self.id,
             "description": self.description, 
             "service_date": self.service_date, 
-            "document_url": self.document_url
+            "document_url": self.document_url, 
+            "category": self.category
         }
