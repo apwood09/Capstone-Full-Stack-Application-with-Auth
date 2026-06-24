@@ -52,3 +52,12 @@ def handle_logs(asset_id):
         db.session.add(new_log)
         db.session.commit()
         return jsonify(new_log.to_dict()), 201
+
+@res_bp.routes('/logs/<int:log_id>', methods=['DELETE'])
+@jwt_required()
+def delete_log(log_id): 
+    # ensure log belongs to asset owned by current user 
+    log = Log.query.join(Asset).filter(Log.id == log_id, Asset.user_id == get_jwt_identity()).first_or_404()
+    db.session.delete(log)
+    db.session.commit()
+    return jsonify({"message": "Log deleted successfully"}), 200
