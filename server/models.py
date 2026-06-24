@@ -1,4 +1,4 @@
-# models.py: define structures of db for db table 
+# models.py define structures of db for db table 
 
 # db.Model: classes recognized by SQLAlchemy as db tables 
 # SerializerMixin: helper class, easy to convert SQLAlchemy model instances into dictionaries (return JSON from Flask API)
