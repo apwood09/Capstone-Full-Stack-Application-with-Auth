@@ -53,7 +53,7 @@ def handle_logs(asset_id):
         db.session.commit()
         return jsonify(new_log.to_dict()), 201
 
-@res_bp.routes('/logs/<int:log_id>', methods=['DELETE'])
+@res_bp.route('/logs/<int:log_id>', methods=['DELETE'])
 @jwt_required()
 def delete_log(log_id): 
     # ensure log belongs to asset owned by current user 
