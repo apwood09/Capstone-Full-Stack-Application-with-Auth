@@ -1,4 +1,5 @@
 from flask import Flask 
+from flask_migrate import Migrate
 from models import db
 from flask_jwt_extended import JWTManager 
 from routes.auth import auth_bp
@@ -21,6 +22,7 @@ app.config['JWT_TOKEN_LOCATION'] = ['headers']
 # INITIALIZATION
 # connects db instance -> Flask app
 db.init_app(app)
+migrate = Migrate(app, db)
 # sets up JWT (JSON Web Token): handles authentication 
 jwt = JWTManager(app)
 bcrypt.init_app(app)
@@ -32,7 +34,7 @@ app.register_blueprint(auth_bp, url_prefix='/api')
 app.register_blueprint(res_bp, url_prefix='/api')
 
 with app.app_context():
-    db.create_all()
+    
 
 # start development server
 if __name__ == '__main__': 
