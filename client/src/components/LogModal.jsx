@@ -20,11 +20,18 @@ const LogModal = ({ asset, onClose }) => {
     }, [asset.id]); 
 
     const handleAddLog = async (e) => {
-        e.preventDefault();
+    e.preventDefault();
+    try {
+        
         const res = await api.post(`/assets/${asset.id}/logs`, formData); 
+        
         setLogs([...logs, res.data]); 
+        
         setFormData({ description: '', service_date: '', category: 'Maintenance' });
-    };
+    } catch (err) {
+        console.error("Failed to add log", err);
+    }
+};
 
     const handleDelete = async (logId) => {
         try {
