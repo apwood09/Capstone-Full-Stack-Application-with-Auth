@@ -34,6 +34,7 @@ app.register_blueprint(auth_bp, url_prefix='/api')
 app.register_blueprint(res_bp, url_prefix='/api')
 
 with app.app_context():
+    db.create_all()
     
 
 # start development server
