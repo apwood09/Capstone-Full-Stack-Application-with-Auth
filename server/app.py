@@ -1,3 +1,4 @@
+import os
 from flask import Flask 
 from flask_migrate import Migrate
 from models import db
@@ -8,14 +9,14 @@ from extensions import bcrypt
 from flask_cors import CORS
 
 # initialize Flaksl application
-app = Flask(__name__)
-CORS(app)
+app = Flask(__name__, static_folder='../client/dist', static_url_path='')
+CORS(app, resources={r"/api/*": {"origins": "https://home-keep-tracker.netlify.app"}})
 
 # CONFIGURATION
 # specifies db files (SQLite
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///homeKeep.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///homeKeep.db')
 # require to  sign & verify JWT tokens
-app.config['JWT_SECRET_KEY'] = 'super-secret'
+app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'default-dev-key')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
 
@@ -32,6 +33,15 @@ bcrypt.init_app(app)
 # 'url_prefix' ensures routes are accessed ('/api')
 app.register_blueprint(auth_bp, url_prefix='/api')
 app.register_blueprint(res_bp, url_prefix='/api')
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
+@app.errorhandler(404)
+def not_found(e):
+    # ensures React Router handles 404s in browser
+    return app.send_static_file('index.html')
 
 with app.app_context():
     db.create_all()
