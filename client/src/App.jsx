@@ -14,7 +14,7 @@ export default function App() {
         <Routes>
           {/* redirect root URL -> /login automatically */}
           <Route path="/" element={<Navigate to="/login" replace />} />
-          {/* route paths & components endered */}
+          {/* route paths & components rendered */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/dashboard" element={<Dashboard />} />
