@@ -8,11 +8,12 @@ import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import LogModal from '../components/LogModal';
 
-// AddAssetForm
+// AddAssetForm: creating new assets
 const AddAssetForm = ({ onAssetAdded }) => {
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
 
+    // handle submit
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
