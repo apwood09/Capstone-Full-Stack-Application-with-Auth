@@ -7,10 +7,14 @@ import SignUp from './pages/SignUp';
 
 export default function App() {
   return (
+    // AuthProvider: give child components access to auth state
     <AuthProvider>
+      {/* BrowserRouter: enables navigation in browser */}
       <BrowserRouter>
         <Routes>
+          {/* redirect root URL -> /login automatically */}
           <Route path="/" element={<Navigate to="/login" replace />} />
+          {/* route paths & components endered */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/dashboard" element={<Dashboard />} />
