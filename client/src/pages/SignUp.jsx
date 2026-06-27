@@ -2,16 +2,25 @@ import React, { useState } from 'react';
 import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
 
+// Signup
 const SignUp = () => {
+    // local state: controlled inputs 
+    // allows React "own" data inputed from user 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    // useNavigate hook: redirect user after success 
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
+        // prevent page refresh on submission 
         e.preventDefault();
         try {
+            // send registration request -> flask backend 
             await api.post('/signup', { username, password });
             alert("Account created! Please log in.");
+
+            // redirect -> login page 
             navigate('/login');
         } catch (err) {
             console.error("Signup failed", err);
