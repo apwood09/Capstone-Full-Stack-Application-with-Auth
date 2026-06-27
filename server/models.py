@@ -13,11 +13,11 @@ db = SQLAlchemy() # db interaction
 bcrypt = Bcrypt() # secure password hashing 
 
 # CLASSES 
-# User 
+# User (table)
 class User(db.Model, SerializerMixin): 
     __tablename__ = 'users'
 
-    # primary key 
+    # primary key: unique ID for indiviual users 
     id = db.Column(db.Integer, primary_key=True)
 
     # User credentials
@@ -25,14 +25,14 @@ class User(db.Model, SerializerMixin):
     # store hashed password 
     password_hash = db.Column(db.String, nullable=False)
 
-# Asset
+# Asset (table)
 class Asset(db.Model, SerializerMixin): 
     __tablename__= 'assets'
 
     # primary key 
     id = db.Column(db.Integer, primary_key=True)
 
-    # asset detials 
+    # asset detials: name requires, date optional 
     name = db.Column(db.String, nullable=False)
 
     purchase_date = db.Column(db.String, nullable=True)
@@ -41,6 +41,7 @@ class Asset(db.Model, SerializerMixin):
     # one user -> many assets
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
+    # convert model project -> JSON-compatiable dictionary 
     def to_dict(self):
         return {
             "id": self.id,
@@ -49,17 +50,20 @@ class Asset(db.Model, SerializerMixin):
             "user_id": self.user_id
         }
 
-# Log
+# Log (table)
 class Log(db.Model): 
     __tablename__ = 'log'
     
     id = db.Column(db.Integer, primary_key=True)
+
+    # foreign key: Links log -> specific asset
     asset_id = db.Column(db.Integer, db.ForeignKey('assets.id'), nullable=False)
     
-    description = db.Column(db.String(200))
-    service_date = db.Column(db.String(20))
-    category = db.Column(db.String(50))
-    document_url = db.Column(db.String(500))
+    # metadata -> maintenance log 
+    description = db.Column(db.String(200)) # description 
+    service_date = db.Column(db.String(20)) # service_date
+    category = db.Column(db.String(50)) # category
+    document_url = db.Column(db.String(500)) # document URL 
 
     def to_dict(self): 
         return {
