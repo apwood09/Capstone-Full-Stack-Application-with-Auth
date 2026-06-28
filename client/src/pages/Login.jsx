@@ -23,7 +23,7 @@ const Login = () => {
         e.preventDefault(); 
         try {
             // attempt login: calls backend -> AuthContext
-            await login(formData.username, formData.password); 
+            await api.post('/api/login', { username: formData.username, password: formData.password }); 
             // successful login: redirect user -> dashbaord 
             navigate('/dashboard'); 
         } catch (err) {
