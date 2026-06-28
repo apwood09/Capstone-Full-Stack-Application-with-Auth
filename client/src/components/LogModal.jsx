@@ -4,7 +4,7 @@ import api from '../api/api';
 // components receive 'asset' workong on & function 'onClose' to hide modal 
 const LogModal = ({ asset, onClose }) => {
     const [logs, setLogs] = useState([]); // stores list service logs 
-   const [formData, setFormData] = useState({ 
+    const [formData, setFormData] = useState({ 
         description: '', 
         service_date: '', 
         category: 'Maintenance' 
@@ -13,7 +13,7 @@ const LogModal = ({ asset, onClose }) => {
     // fetch logs: specific asset -> modal opens OR asset changes 
     useEffect(() => {
         const fetchLogs = async () => {
-            const res = await api.get(`/assets/${asset.id}/logs`); 
+            const res = await api.get(`/api/assets/${asset.id}/logs`); 
             setLogs(res.data); 
         }; 
 
@@ -27,7 +27,7 @@ const LogModal = ({ asset, onClose }) => {
     try {
         
         // POST: send new log data -> flask backend
-        const res = await api.post(`/assets/${asset.id}/logs`, formData); 
+        const res = await api.post(`/api/assets/${asset.id}/logs`, formData); 
         
         // updates local state include new log without page refresh 
         setLogs([...logs, res.data]); 
@@ -42,7 +42,7 @@ const LogModal = ({ asset, onClose }) => {
 // handle delete: delete log entry by ID 
     const handleDelete = async (logId) => {
         try {
-            await api.delete(`/logs/${logId}`);
+            await api.delete(`/api/logs/${logId}`);
             // use filter: remove specific log from state array
             setLogs(logs.filter(log => log.id !== logId)); 
         } catch (err) {
