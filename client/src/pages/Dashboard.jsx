@@ -71,9 +71,14 @@ const Dashboard = () => {
 
     // delete asset
     const handleDelete = async (id) => {
+        if (!id) {
+        console.error("Attempted to delete an asset with no ID");
+        return;
+        }
+
         try {
-            await api.delete(`/assets/${id}`);
-            setAssets(assets.filter(asset => asset.id != id));
+            await api.delete(`/api/assets/${id}`);
+            setAssets(assets.filter(asset => asset.id !== id));
         } catch (err) {
             console.error("Failed to delete asset", err);
         }
