@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // create configures axios instance with base URL 
 // every request with 'api' object will start with 'api'
-const api = axios.create({ baseURL: process.env.REACT_APP_BACKEND_URL || '/api' }); 
+const api = axios.create({ baseURL: 'https://capstone-full-stack-application-with-auth.onrender.com' }); 
 
 // set up request interceptor 
 // runs automatically before every request is sent 
