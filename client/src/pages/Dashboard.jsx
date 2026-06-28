@@ -124,7 +124,10 @@ const Dashboard = () => {
                         asset={asset} 
                         onDelete={() => handleDelete(asset.id)}
                         // pass the trigger function to open the modal
-                        onOpenLogs={() => setActiveAsset(asset)} 
+                        onOpenLogs={() => {
+                             console.log("Setting active asset:", asset);
+                             setActiveAsset(asset);
+                        }}
                     />
                 ))}
             </div>
