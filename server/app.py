@@ -10,7 +10,7 @@ from flask_cors import CORS
 
 # initialize Flaksl application
 app = Flask(__name__, static_folder='../client/dist', static_url_path='')
-CORS(app, resources={r"/api/*": {"origins": "https://home-keep-tracker.netlify.app"}})
+CORS(app, origins=["https://your-app-name.netlify.app"])
 
 # CONFIGURATION
 # specifies db files (SQLite
