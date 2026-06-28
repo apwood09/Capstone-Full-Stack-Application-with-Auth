@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
     // handle login request 
     const login = async (username, password) => {
         try {
-            const res = await api.post('/login', { username, password });
+            const res = await api.post('/api/login', { username, password });
             localStorage.setItem('jwt_token', res.data.access_token);
             localStorage.setItem('user', username);
             setUser(username);
