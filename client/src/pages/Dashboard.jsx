@@ -58,7 +58,8 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchAssets = async () => {
             try {
-                const res = await api.get('/assets'); 
+                const res = await api.get('/api/assets');
+                console.log("Assets fetched:", res.data);
                 setAssets(res.data); 
             } catch (err) {
                 console.error("Error fetching assets", err); 
@@ -71,6 +72,8 @@ const Dashboard = () => {
 
     // delete asset
     const handleDelete = async (id) => {
+        console.log("ID received in handleDelete:", id);
+
         if (!id) {
         console.error("Attempted to delete an asset with no ID");
         return;
