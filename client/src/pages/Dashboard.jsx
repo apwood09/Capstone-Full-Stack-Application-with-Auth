@@ -115,7 +115,7 @@ const Dashboard = () => {
             <AddAssetForm onAssetAdded={handleAddAsset} />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {assets.map(asset => (
+                {Array.isArray(assets) && assets.map(asset => (
                     <AssetCard 
                         key={asset.id} 
                         asset={asset} 
