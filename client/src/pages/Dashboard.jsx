@@ -10,39 +10,44 @@ import LogModal from '../components/LogModal';
 
 // AddAssetForm: creating new assets
 const AddAssetForm = ({ onAssetAdded }) => {
-    const [name, setName] = useState('');
-    const [date, setDate] = useState('');
+    const [formData, setFormData] = useState({ name: '', date: '', docUrl: '' });
 
-    // handle submit
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // send POST request -> backend
-            const res = await api.post('/api/assets', { name, purchase_date: date });
-            onAssetAdded(res.data); // update: local dashboard state
-            setName(''); // clear inputs
-            setDate('');
+            const payload = {
+                name: formData.name,
+                purchase_date: formData.date,
+                document_url: formData.docUrl
+            };
+            const res = await api.post('/api/assets', payload);
+            onAssetAdded(res.data);
+            setFormData({ name: '', date: '', docUrl: '' });
         } catch (err) {
-            console.error("Failed to add asset", err);
+            console.error("Server Error:", err.response?.data || err.message);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="mb-8 p-4 border rounded shadow-sm">
-            <input 
-                placeholder="Asset Name" 
-                value={name} 
-                onChange={(e) => setName(e.target.value)} 
-                className="border p-2 mr-2 rounded"
-                required
-            />
-            <input 
-                type="date" 
-                value={date} 
-                onChange={(e) => setDate(e.target.value)} 
-                className="border p-2 mr-2 rounded"
-            />
-            <button type="submit" className="bg-blue-500 text-white p-2 rounded">Add Asset</button>
+        <form onSubmit={handleSubmit} className="mb-8 p-6 bg-white border border-slate-200 rounded-xl shadow-sm">
+            <h2 className="text-lg font-bold mb-4 text-slate-800">Add New Asset</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <input 
+                    placeholder="Asset Name" required className="border p-2 rounded-lg" 
+                    value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} 
+                />
+                <input 
+                    type="date" className="border p-2 rounded-lg" 
+                    value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} 
+                />
+                <input 
+                    placeholder="Document URL (Optional)" className="border p-2 rounded-lg" 
+                    value={formData.docUrl} onChange={(e) => setFormData({...formData, docUrl: e.target.value})} 
+                />
+            </div>
+            <button type="submit" className="mt-4 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">
+                Add Asset
+            </button>
         </form>
     );
 };
