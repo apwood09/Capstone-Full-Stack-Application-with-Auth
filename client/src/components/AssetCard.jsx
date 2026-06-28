@@ -18,7 +18,7 @@ const AssetCard = ({ asset, onDelete, onOpenLogs }) => {
                     Manage Logs
                 </button>
                 <button 
-                    onClick={() => onDelete(asset.id)} 
+                    onClick={onDelete}
                     className='mt-4 bg-red-500 text-white px-3 py-1 rounded text-xs'
                 >
                     Delete

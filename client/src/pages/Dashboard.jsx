@@ -115,12 +115,12 @@ const Dashboard = () => {
             <AddAssetForm onAssetAdded={handleAddAsset} />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {Array.isArray(assets) && assets.map(asset => (
+                {assets.map(asset => (
                     <AssetCard 
                         key={asset.id} 
                         asset={asset} 
-                        onDelete={handleDelete}
-                        // 3. Pass the trigger function to open the modal
+                        onDelete={() => handleDelete(asset.id)}
+                        // pass the trigger function to open the modal
                         onOpenLogs={() => setActiveAsset(asset)} 
                     />
                 ))}
