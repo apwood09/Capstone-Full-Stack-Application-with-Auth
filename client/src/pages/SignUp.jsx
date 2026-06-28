@@ -17,7 +17,7 @@ const SignUp = () => {
         e.preventDefault();
         try {
             // send registration request -> flask backend 
-            await api.post('/signup', { username, password });
+            await api.post('/api/signup', { username, password });
             alert("Account created! Please log in.");
 
             // redirect -> login page 
