@@ -7,17 +7,18 @@ const LogModal = ({ asset, onClose }) => {
     const [formData, setFormData] = useState({ 
         description: '', 
         service_date: '', 
-        category: 'Maintenance' 
+        category: 'Maintenance', 
+        document_url: ''
     });
 
     // fetch logs: specific asset -> modal opens OR asset changes 
     useEffect(() => {
         const fetchLogs = async () => {
             const res = await api.get(`/api/assets/${asset.id}/logs`); 
-            setLogs(res.data); 
+            setLogs(Array.isArray(res.data) ? res.data : []); 
         }; 
 
-        fetchLogs(); 
+        if (asset?.id) fetchLogs(); 
 
     }, [asset.id]); // dependency array: re-runs if asset ID changes
 
@@ -33,7 +34,7 @@ const LogModal = ({ asset, onClose }) => {
         setLogs([...logs, res.data]); 
         
         // clears form inputs after successful submission 
-        setFormData({ description: '', service_date: '', category: 'Maintenance' });
+        setFormData({ description: '', service_date: '', category: 'Maintenance', document_url: '' });
     } catch (err) {
         console.error("Failed to add log", err);
     }
@@ -51,48 +52,75 @@ const LogModal = ({ asset, onClose }) => {
     }; 
 
     return (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-6 rounded shadow-lg w-96 z-50">
-                <h2 className="text-xl font-bold mb-4">Logs for {asset.name}</h2>
-                <ul className="mb-4">
-                    {logs.map(log => (
-                        <li key={log.id} className="flex justify-between items-center border-b py-2">
-                            <span>
-                                <strong>{log.category}</strong>: {log.description} ({log.service_date})
-                            </span>
-                            <button onClick={() => handleDelete(log.id)} className="text-red-500 text-sm ml-2">Delete</button>
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
+            <div className="bg-white p-6 rounded-xl shadow-xl w-96 max-h-[80vh] overflow-y-auto">
+                <h2 className="text-xl font-bold mb-4 text-slate-800">Logs for {asset.name}</h2>
+                
+                <ul className="mb-6 space-y-2">
+                    {Array.isArray(logs) && logs.map(log => (
+                        <li key={log.id} className="border-b pb-2">
+                            <p className="font-semibold text-sm text-slate-800">
+                                {log.category}: {log.description}
+                            </p>
+                            <p className="text-xs text-slate-500">{log.service_date}</p>
+                            
+                            {log.document_url && (
+                                <a href={log.document_url} target="_blank" rel="noopener noreferrer" 
+                                   className="text-indigo-600 text-xs underline block mt-1">
+                                    View Record
+                                </a>
+                            )}
+                            
+                            <button 
+                                onClick={() => handleDelete(log.id)} 
+                                className="text-rose-500 text-xs font-medium mt-1 hover:text-rose-700"
+                            >
+                                Delete
+                            </button>
                         </li>
                     ))}
                 </ul>
                 
                 <form onSubmit={handleAddLog} className="space-y-2">
                     <input 
-                        className="border p-2 w-full"
-                        placeholder="Description"
-                        value={formData.description}
-                        onChange={(e) => setFormData({...formData, description: e.target.value})}
+                        className="border p-2 w-full rounded-lg" 
+                        placeholder="Description" 
+                        value={formData.description} 
+                        onChange={(e) => setFormData({...formData, description: e.target.value})} 
+                        required 
                     />
                     <input 
-                        type="date"
-                        className="border p-2 w-full"
-                        value={formData.service_date}
-                        onChange={(e) => setFormData({...formData, service_date: e.target.value})}
+                        type="date" 
+                        className="border p-2 w-full rounded-lg" 
+                        value={formData.service_date} 
+                        onChange={(e) => setFormData({...formData, service_date: e.target.value})} 
+                    />
+                    <input 
+                        className="border p-2 w-full rounded-lg" 
+                        placeholder="Document URL (Optional)" 
+                        value={formData.document_url} 
+                        onChange={(e) => setFormData({...formData, document_url: e.target.value})} 
                     />
                     <select 
-                        className="border p-2 w-full"
-                        value={formData.category}
+                        className="border p-2 w-full rounded-lg bg-white" 
+                        value={formData.category} 
                         onChange={(e) => setFormData({...formData, category: e.target.value})}
                     >
                         <option value="Maintenance">Maintenance</option>
                         <option value="Repair">Repair</option>
                         <option value="Upgrade">Upgrade</option>
                     </select>
-                    <button type="submit" className="bg-green-500 text-white p-2 w-full">Add Log</button>
+                    <button type="submit" className="bg-indigo-600 text-white p-2 w-full rounded-lg hover:bg-indigo-700 transition">
+                        Add Log
+                    </button>
                 </form>
-                <button onClick={onClose} className="mt-4 text-gray-500">Close</button>
+                
+                <button onClick={onClose} className="mt-4 w-full text-slate-500 text-sm hover:text-slate-800 transition">
+                    Close
+                </button>
             </div>
         </div>
-    ); 
-}; 
+    );
+};
 
 export default LogModal;

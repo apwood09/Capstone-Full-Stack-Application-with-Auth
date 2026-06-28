@@ -60,10 +60,10 @@ class Log(db.Model):
     asset_id = db.Column(db.Integer, db.ForeignKey('assets.id'), nullable=False)
     
     # metadata -> maintenance log 
-    description = db.Column(db.String(200)) # description 
+    description = db.Column(db.String(255), nullable=False) # description 
     service_date = db.Column(db.String(20)) # service_date
     category = db.Column(db.String(50)) # category
-    document_url = db.Column(db.String(500)) # document URL 
+    document_url = db.Column(db.String(255), nullable=True) # document URL 
 
     def to_dict(self): 
         return {
