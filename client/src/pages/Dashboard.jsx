@@ -18,7 +18,7 @@ const AddAssetForm = ({ onAssetAdded }) => {
         e.preventDefault();
         try {
             // send POST request -> backend
-            const res = await api.post('/assets', { name, purchase_date: date });
+            const res = await api.post('/api/assets', { name, purchase_date: date });
             onAssetAdded(res.data); // update: local dashboard state
             setName(''); // clear inputs
             setDate('');
