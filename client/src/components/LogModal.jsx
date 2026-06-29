@@ -53,27 +53,28 @@ const LogModal = ({ asset, onClose }) => {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-3xl p-8 w-96 max-h-[80vh] overflow-y-auto text-white">
-                <h2 className="text-2xl font-bold mb-4">Logs for {asset.name}</h2>
+            <div className="bg-theme-glass backdrop-blur-xl border border-white/10 shadow-2xl rounded-3xl p-8 w-96 max-h-[80vh] overflow-y-auto text-white">
+                <h2 className="text-2xl font-black uppercase tracking-tight mb-6">Logs for {asset.name}</h2>
                 
-                <ul className="mb-6 space-y-3">
+                <ul className="mb-6 space-y-4">
                     {Array.isArray(logs) && logs.map(log => (
-                        <li key={log.id} className="bg-white/5 p-3 rounded-2xl border border-white/10">
-                            <p className="font-semibold text-sm">
-                                {log.category}: {log.description}
+                        <li key={log.id} className="bg-theme-grey/30 p-4 rounded-2xl border border-white/5">
+                            <p className="font-bold text-sm text-theme-yellow">
+                                {log.category}:
                             </p>
-                            <p className="text-xs text-slate-500">{log.service_date}</p>
+                            <p className="text-sm">{log.description}</p>
+                            <p className="text-xs text-gray-400 mt-1">{log.service_date}</p>
                             
                             {log.document_url && (
                                 <a href={log.document_url} target="_blank" rel="noopener noreferrer" 
-                                   className="text-indigo-600 text-xs underline block mt-1">
+                                   className="text-blue-300 text-xs underline block mt-2">
                                     View Record
                                 </a>
                             )}
                             
                             <button 
                                 onClick={() => handleDelete(log.id)} 
-                                className="text-rose-500 text-xs font-medium mt-1 hover:text-rose-700"
+                                className="text-theme-red text-xs font-bold mt-3 hover:text-red-400"
                             >
                                 Delete
                             </button>
@@ -81,9 +82,9 @@ const LogModal = ({ asset, onClose }) => {
                     ))}
                 </ul>
                 
-                <form onSubmit={handleAddLog} className="space-y-2">
+                <form onSubmit={handleAddLog} className="space-y-3">
                     <input 
-                        className="w-full bg-white/10 border border-white/20 p-3 rounded-xl text-white placeholder-white/50 outline-none" 
+                        className="w-full bg-theme-grey/50 border border-white/10 p-3 rounded-xl text-white placeholder-gray-400 outline-none" 
                         placeholder="Description" 
                         value={formData.description} 
                         onChange={(e) => setFormData({...formData, description: e.target.value})} 
@@ -91,7 +92,7 @@ const LogModal = ({ asset, onClose }) => {
                     />
                     <input 
                         type="date" 
-                        className="border p-2 w-full rounded-lg" 
+                        className="bg-theme-grey/50 border border-white/10 p-3 rounded-xl text-white" 
                         value={formData.service_date} 
                         onChange={(e) => setFormData({...formData, service_date: e.target.value})} 
                     />
@@ -102,7 +103,7 @@ const LogModal = ({ asset, onClose }) => {
                         onChange={(e) => setFormData({...formData, document_url: e.target.value})} 
                     />
                     <select 
-                        className="border p-2 w-full rounded-lg bg-white" 
+                        className="bg-theme-grey/50 border border-white/10 p-3 rounded-xl text-white" 
                         value={formData.category} 
                         onChange={(e) => setFormData({...formData, category: e.target.value})}
                     >
@@ -110,12 +111,12 @@ const LogModal = ({ asset, onClose }) => {
                         <option value="Repair">Repair</option>
                         <option value="Upgrade">Upgrade</option>
                     </select>
-                    <button type="submit" className="w-full bg-white/20 hover:bg-white/30 border border-white/20 p-3 rounded-xl transition">
+                    <button type="submit" className="w-full bg-theme-yellow text-black font-bold p-3 rounded-xl hover:bg-yellow-400 transition">
                         Add Log
                     </button>
                 </form>
                 
-                <button onClick={onClose} className="mt-4 w-full text-white/60 text-sm hover:text-white">
+                <button onClick={onClose} className="mt-4 w-full text-gray-400 text-sm hover:text-white">
                     Close
                 </button>
             </div>
