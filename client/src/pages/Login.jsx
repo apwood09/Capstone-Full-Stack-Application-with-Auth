@@ -49,8 +49,8 @@ const Login = () => {
 
             {/* sign Up */}
             <p className="mt-6 text-sm text-slate-600 text-center">
-                Don't have an account?
-                <Link to="/signup" lassName="text-indigo-600 font-bold ml-1 hover:underline">
+                Don't have an account? 
+                <Link to="/signup" className="text-indigo-600 font-bold ml-2 hover:underline">
                     Sign up here
                 </Link>
             </p>
