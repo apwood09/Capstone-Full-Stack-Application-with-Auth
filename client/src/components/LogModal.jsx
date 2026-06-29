@@ -8,7 +8,8 @@ const LogModal = ({ asset, onClose }) => {
         description: '', 
         service_date: '', 
         category: 'Maintenance', 
-        document_url: ''
+        document_url: '', 
+        image_url: ''
     });
 
     // fetch logs: specific asset -> modal opens OR asset changes 
@@ -34,7 +35,7 @@ const LogModal = ({ asset, onClose }) => {
         setLogs([...logs, res.data]); 
         
         // clears form inputs after successful submission 
-        setFormData({ description: '', service_date: '', category: 'Maintenance', document_url: '' });
+        setFormData({ description: '', service_date: '', category: 'Maintenance', document_url: '', image_url: '' });
     } catch (err) {
         console.error("Failed to add log", err);
     }
@@ -53,75 +54,60 @@ const LogModal = ({ asset, onClose }) => {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Glass Container with Industrial Theme */}
             <div className="bg-theme-glass backdrop-blur-xl border border-white/10 shadow-2xl rounded-3xl p-8 w-96 max-h-[80vh] overflow-y-auto text-white">
-                <h2 className="text-2xl font-black uppercase tracking-tight mb-6">Logs for {asset.name}</h2>
+                <h2 className="text-2xl font-black uppercase tracking-tight mb-6">Logs: {asset.name}</h2>
                 
                 <ul className="mb-6 space-y-4">
                     {Array.isArray(logs) && logs.map(log => (
                         <li key={log.id} className="bg-theme-grey/30 p-4 rounded-2xl border border-white/5">
-                            <p className="font-bold text-sm text-theme-yellow">
-                                {log.category}:
-                            </p>
+                            <p className="font-bold text-sm text-theme-yellow">{log.category}</p>
                             <p className="text-sm">{log.description}</p>
                             <p className="text-xs text-gray-400 mt-1">{log.service_date}</p>
                             
-                            {log.document_url && (
-                                <a href={log.document_url} target="_blank" rel="noopener noreferrer" 
-                                   className="text-blue-300 text-xs underline block mt-2">
-                                    View Record
-                                </a>
+                            {/* Image Support */}
+                            {log.image_url && (
+                                <img src={log.image_url} alt="Attachment" className="mt-2 w-full h-24 object-cover rounded-lg" />
                             )}
                             
-                            <button 
-                                onClick={() => handleDelete(log.id)} 
-                                className="text-theme-red text-xs font-bold mt-3 hover:text-red-400"
-                            >
-                                Delete
+                            {log.document_url && (
+                                <a href={log.document_url} target="_blank" rel="noopener noreferrer" 
+                                   className="text-blue-300 text-xs underline block mt-2">View Document</a>
+                            )}
+                            
+                            <button onClick={() => handleDelete(log.id)} 
+                                    className="text-theme-red text-xs font-bold mt-3 hover:text-red-400">
+                                Delete Entry
                             </button>
                         </li>
                     ))}
                 </ul>
                 
                 <form onSubmit={handleAddLog} className="space-y-3">
-                    <input 
-                        className="w-full bg-theme-grey/50 border border-white/10 p-3 rounded-xl text-white placeholder-gray-400 outline-none" 
-                        placeholder="Description" 
-                        value={formData.description} 
-                        onChange={(e) => setFormData({...formData, description: e.target.value})} 
-                        required 
-                    />
-                    <input 
-                        type="date" 
-                        className="bg-theme-grey/50 border border-white/10 p-3 rounded-xl text-white" 
-                        value={formData.service_date} 
-                        onChange={(e) => setFormData({...formData, service_date: e.target.value})} 
-                    />
-                    <input 
-                        className="border p-2 w-full rounded-lg" 
-                        placeholder="Document URL (Optional)" 
-                        value={formData.document_url} 
-                        onChange={(e) => setFormData({...formData, document_url: e.target.value})} 
-                    />
-                    <select 
-                        className="bg-theme-grey/50 border border-white/10 p-3 rounded-xl text-white" 
-                        value={formData.category} 
-                        onChange={(e) => setFormData({...formData, category: e.target.value})}
-                    >
-                        <option value="Maintenance">Maintenance</option>
-                        <option value="Repair">Repair</option>
-                        <option value="Upgrade">Upgrade</option>
-                    </select>
+                    <input className="w-full bg-theme-grey/50 border border-white/10 p-3 rounded-xl text-white placeholder-gray-400 outline-none" 
+                           placeholder="Description" value={formData.description} 
+                           onChange={(e) => setFormData({...formData, description: e.target.value})} required />
+                    
+                    <div className="grid grid-cols-2 gap-2">
+                        <input type="date" className="bg-theme-grey/50 border border-white/10 p-3 rounded-xl text-white" 
+                               value={formData.service_date} onChange={(e) => setFormData({...formData, service_date: e.target.value})} />
+                        <select className="bg-theme-grey/50 border border-white/10 p-3 rounded-xl text-white" value={formData.category} 
+                                onChange={(e) => setFormData({...formData, category: e.target.value})}>
+                            <option>Maintenance</option><option>Repair</option><option>Upgrade</option>
+                        </select>
+                    </div>
+
+                    <input className="w-full bg-theme-grey/50 border border-white/10 p-3 rounded-xl text-white placeholder-gray-400" 
+                           placeholder="Image URL" value={formData.image_url} 
+                           onChange={(e) => setFormData({...formData, image_url: e.target.value})} />
+
                     <button type="submit" className="w-full bg-theme-yellow text-black font-bold p-3 rounded-xl hover:bg-yellow-400 transition">
-                        Add Log
+                        Add Log Entry
                     </button>
                 </form>
                 
-                <button onClick={onClose} className="mt-4 w-full text-gray-400 text-sm hover:text-white">
-                    Close
-                </button>
+                <button onClick={onClose} className="mt-4 w-full text-gray-400 text-sm hover:text-white">Close</button>
             </div>
         </div>
     );
 };
-
-export default LogModal;
