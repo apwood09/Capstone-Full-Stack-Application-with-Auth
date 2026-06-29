@@ -37,20 +37,20 @@ const Login = () => {
             {/* username input */}
             <input 
                 onChange={(e) => setFormData({...formData, username: e.target.value})}
-                className="border p-2 block w-full mb-4" placeholder="Username" 
+                className="w-full p-3 mb-4 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Username" 
             />
             {/* password input */}
             <input 
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
-                type="password" className="border p-2 block w-full mb-4" placeholder="Password" 
+                type="password" className="w-full p-3 mb-6 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Password" 
             />
             {/* submission button */}
-            <button className="bg-blue-500 text-white p-2 w-full">Login</button>
+            <button className="w-full bg-indigo-600 text-white p-3 rounded-lg font-bold hover:bg-indigo-700 transition">Login</button>
 
             {/* sign Up */}
-            <p className="mt-4 text-sm">
+            <p className="mt-6 text-sm text-slate-600 text-center">
                 Don't have an account?
-                <Link to="/signup" className="text-blue-500 underline ml-2">
+                <Link to="/signup" lassName="text-indigo-600 font-bold ml-1 hover:underline">
                     Sign up here
                 </Link>
             </p>

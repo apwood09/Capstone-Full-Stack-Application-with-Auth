@@ -29,20 +29,20 @@ const SignUp = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="p-8 max-w-sm mx-auto">
-            <h2 className="text-xl font-bold mb-4">Sign Up</h2>
+        <form onSubmit={handleSubmit} className="w-full max-w-sm bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">Sign Up</h2>
             <input 
                 placeholder="Username" 
                 onChange={(e) => setUsername(e.target.value)} 
-                className="border p-2 w-full mb-2" 
+                className="w-full p-3 mb-4 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 outline-none" 
             />
             <input 
                 type="password" 
                 placeholder="Password" 
                 onChange={(e) => setPassword(e.target.value)} 
-                className="border p-2 w-full mb-4" 
+                className="w-full p-3 mb-6 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 outline-none" 
             />
-            <button type="submit" className="bg-green-500 text-white p-2 w-full">Sign Up</button>
+            <button type="submit" className="w-full bg-emerald-600 text-white p-3 rounded-lg font-bold hover:bg-emerald-700 transition">Sign Up</button>
         </form>
     );
 };
