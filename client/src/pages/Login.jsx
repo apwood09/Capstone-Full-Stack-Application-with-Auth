@@ -48,7 +48,7 @@ const Login = () => {
             <button className="w-full bg-indigo-600 text-white p-3 rounded-lg font-bold hover:bg-indigo-700 transition">Login</button>
 
             {/* sign Up */}
-            <p className="mt-6 text-sm text-slate-600 text-center">
+            <p className="mt-6 text-sm text-white-600 text-center">
                 Don't have an account? 
                 <Link to="/signup" className="text-indigo-600 font-bold ml-2 hover:underline">
                     Sign up here

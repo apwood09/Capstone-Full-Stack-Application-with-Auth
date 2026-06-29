@@ -35,22 +35,22 @@ const SignUp = () => {
                 <input 
                     placeholder="Username" 
                     onChange={(e) => setUsername(e.target.value)} 
-                    className="w-full p-3 mb-4 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 outline-none" 
+                    className="w-full p-3 mb-4 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-yellow-400 outline-none" 
                     required
                 />
                 <input 
                     type="password" 
                     placeholder="Password" 
                     onChange={(e) => setPassword(e.target.value)} 
-                    className="w-full p-3 mb-6 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 outline-none" 
+                    className="w-full p-3 mb-6 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-yellow-400 outline-none" 
                     required
                 />
-                <button type="submit" className="w-full bg-emerald-600 text-white p-3 rounded-lg font-bold hover:bg-emerald-700 transition">
+                <button type="submit" className="w-full bg-emerald-600 text-white p-3 rounded-lg font-bold hover:bg-slate-700 transition">
                     Sign Up
                 </button>
                 <p className="mt-6 text-sm text-slate-600 text-center">
                     Already have an account? 
-                    <Link to="/login" className="text-emerald-600 font-bold ml-1 hover:underline">Login</Link>
+                    <Link to="/login" className="text-yellow-400 font-bold ml-1 hover:underline">Login</Link>
                 </p>
             </form>
         </div>
