@@ -45,8 +45,8 @@ const SignUp = () => {
                     className="w-full p-3 mb-6 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-yellow-400 outline-none" 
                     required
                 />
-                <button type="submit" className="w-full bg-emerald-600 text-white p-3 rounded-lg font-bold hover:bg-slate-700 transition">
-                    Sign Up
+                <button type="submit" className="w-full bg-red text-white p-3 rounded-lg font-bold hover:bg-red-400 transition">
+                    Sign Up 
                 </button>
                 <p className="mt-6 text-sm text-slate-600 text-center">
                     Already have an account? 
