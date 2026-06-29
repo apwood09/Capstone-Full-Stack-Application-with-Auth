@@ -111,3 +111,5 @@ const LogModal = ({ asset, onClose }) => {
         </div>
     );
 };
+
+export default LogModal;
