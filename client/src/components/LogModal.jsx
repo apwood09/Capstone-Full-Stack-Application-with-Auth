@@ -52,14 +52,14 @@ const LogModal = ({ asset, onClose }) => {
     }; 
 
     return (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-            <div className="bg-white p-6 rounded-xl shadow-xl w-96 max-h-[80vh] overflow-y-auto">
-                <h2 className="text-xl font-bold mb-4 text-slate-800">Logs for {asset.name}</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-3xl p-8 w-96 max-h-[80vh] overflow-y-auto text-white">
+                <h2 className="text-2xl font-bold mb-4">Logs for {asset.name}</h2>
                 
-                <ul className="mb-6 space-y-2">
+                <ul className="mb-6 space-y-3">
                     {Array.isArray(logs) && logs.map(log => (
-                        <li key={log.id} className="border-b pb-2">
-                            <p className="font-semibold text-sm text-slate-800">
+                        <li key={log.id} className="bg-white/5 p-3 rounded-2xl border border-white/10">
+                            <p className="font-semibold text-sm">
                                 {log.category}: {log.description}
                             </p>
                             <p className="text-xs text-slate-500">{log.service_date}</p>
@@ -83,7 +83,7 @@ const LogModal = ({ asset, onClose }) => {
                 
                 <form onSubmit={handleAddLog} className="space-y-2">
                     <input 
-                        className="border p-2 w-full rounded-lg" 
+                        className="w-full bg-white/10 border border-white/20 p-3 rounded-xl text-white placeholder-white/50 outline-none" 
                         placeholder="Description" 
                         value={formData.description} 
                         onChange={(e) => setFormData({...formData, description: e.target.value})} 
@@ -110,12 +110,12 @@ const LogModal = ({ asset, onClose }) => {
                         <option value="Repair">Repair</option>
                         <option value="Upgrade">Upgrade</option>
                     </select>
-                    <button type="submit" className="bg-indigo-600 text-white p-2 w-full rounded-lg hover:bg-indigo-700 transition">
+                    <button type="submit" className="w-full bg-white/20 hover:bg-white/30 border border-white/20 p-3 rounded-xl transition">
                         Add Log
                     </button>
                 </form>
                 
-                <button onClick={onClose} className="mt-4 w-full text-slate-500 text-sm hover:text-slate-800 transition">
+                <button onClick={onClose} className="mt-4 w-full text-white/60 text-sm hover:text-white">
                     Close
                 </button>
             </div>
