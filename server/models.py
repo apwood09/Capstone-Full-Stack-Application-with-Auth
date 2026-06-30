@@ -41,6 +41,8 @@ class Asset(db.Model, SerializerMixin):
     # one user -> many assets
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
+    logs = db.relationship('Log', backref='asset', lazy=True, cascade='all, delete-orphan')
+
     # convert model project -> JSON-compatiable dictionary 
     def to_dict(self):
         return {
@@ -51,7 +53,7 @@ class Asset(db.Model, SerializerMixin):
         }
 
 # Log (table)
-class Log(db.Model): 
+class Log(db.Model, SerializerMixin): 
     __tablename__ = 'log'
     
     id = db.Column(db.Integer, primary_key=True)
@@ -64,6 +66,7 @@ class Log(db.Model):
     service_date = db.Column(db.String(20)) # service_date
     category = db.Column(db.String(50)) # category
     document_url = db.Column(db.String(255), nullable=True) # document URL 
+    image_url = db.Column(db.String(255), nullable=True) # image URL
 
     def to_dict(self): 
         return {
@@ -71,5 +74,6 @@ class Log(db.Model):
             "description": self.description, 
             "service_date": self.service_date, 
             "document_url": self.document_url, 
+            "image_url": self.image_url,
             "category": self.category
         }
