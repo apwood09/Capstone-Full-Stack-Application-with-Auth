@@ -59,7 +59,7 @@ class Log(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
 
     # foreign key: Links log -> specific asset
-    asset_id = db.Column(db.Integer, db.ForeignKey('assets.id'), nullable=False)
+    asset_id = db.Column(db.Integer, db.ForeignKey('assets.id', ondelete='CASCADE'), nullable=False)
     
     # metadata -> maintenance log 
     description = db.Column(db.String(255), nullable=False) # description 
